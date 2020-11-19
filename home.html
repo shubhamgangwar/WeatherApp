@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+<style>
+ *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+ }
+body{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    min-width: 100vw;
+    max-height: auto;
+    background-color: seagreen;
+    flex-direction: column;   
+}
+.main{
+    background-image: linear-gradient(yellow ,red , skyblue);
+    height: 30rem;
+    width: 17rem;
+    margin-top: 4%;
+    align-self: center;
+    border-radius: 20px;
+    box-shadow: 1px 3px 29px 7px rgba(0,0,0,0.4) inset;
+    border-top: 10px inset rgb(0, 0, 0);
+}
+.box{ 
+    border-radius: 20px;
+    box-shadow: 1px 69px 29px -7px rgba(0,0,0,0.4); 
+    height: 15rem;
+    /* margin-top: 5px; */
+}
+#weathercon i{
+    font-size: 18vh;
+    align-items: center;
+    margin-top: 30px;
+}
+.location i{
+    margin-top: 50px;
+    font-size: 8vh;
+}
+#h2{
+    justify-content: center;
+    padding-top: 10%;
+    margin-top: -5%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#h2:hover{
+    font-size: 2vw;
+    text-transform: uppercase;
+    color: seagreen;
+}
+hr{
+    margin-top: 3%;
+}
+
+</style>
+    <title>Weater App</title>
+</head>
+<body>
+    
+    <div class="main">    
+    <div class="box">
+        <div id="weathercon">
+            <i class='fas fa-sun' style='color: #f1c40f;'></i>;
+        </div>
+        <div>
+        <hr><hr>
+        <h2 id="h2">{%weather%}</h2>
+        <hr><hr>
+    </div>
+    </div>
+    <div class="info">
+       <h2 class="location"> <i class="fas fa-street-view "></i>&nbsp; {%location%},{%country%} </h2>
+       <p id="date">WED 23|2020 | 10:30 AM</p>
+       <h1 class="temp">{%tempval%} &deg;F</h1>
+       <h3 class="tempmin_mam">{%tempmin%} &deg;F | {%tempmax%} &deg;F</h3>
+    </div>
+</div>
+
+<script>
+    const h2 = document.getElementById("h2");
+    const heading = "{%weather%}"
+
+    if(heading == "Sunny")
+    h2.innerHTML = "Sunny";
+    else if (heading == "Clouds")
+    h2.innerHTML = "Clouds";
+    else if (heading == "Clear")
+    h2.innerHTML = "Clear";
+    else if(heading == "Rainy")
+    h2.innerHTML = "Rainy";
+    // else
+    // h2.innerHTML = "Sunny";
+
+    const currdate = document.getElementById("date");
+    let weathercond = document.getElementById("weathercon");
+
+    const tempstatus ="{%temstatus%}"
+
+    if(tempstatus == "Sunny")
+    weathercond.innerHTML = 
+    "<i class='fas fa-sun' style='color:#f1c40f'></i>";
+    else if (tempstatus == "Clouds")
+    weathercond.innerHTML = 
+    "<i class='fas fa-cloud' style='color:skyblue'></i>";
+    else if (tempstatus == "Clear")
+    weathercond.innerHTML = 
+    "<i class='fas fa-cloud-sun' style='color:#e8e5dc';></i>";
+    else if(tempstatus == "Rainy")
+    weathercond.innerHTML = 
+    "<i class='fas fa-cloud-rain' style='color:#f1f2f6'></i>";
+    else
+    weathercond.innerHTML = 
+    "<i class ='fas fa-cloud' style='color: seagreen'></i>";
+    
+
+    const currentday = () => {
+        
+        var weekday = new Array(7);
+        weekday[0] = "Sun";
+        weekday[1] = "Mon";
+        weekday[2] = "Tue";
+        weekday[3] = "Wed";
+        weekday[4] = "Thu";
+        weekday[5] = "Fri";
+        weekday[6] = "Sat";
+
+        let day = new Date();
+        let currday = day.getDay();
+        let todayday = weekday[currday];
+        return todayday;
+
+    };
+        
+
+    const currenttime = () =>{
+
+        var month = new Array();
+        month[0] = "Jan";
+        month[1] = "Feb";
+        month[2] = "Mar";
+        month[3] = "Apr";
+        month[4] = "May";
+        month[5] = "Jun";
+        month[6] = "Jul";
+        month[7] = "Aug";
+        month[8] = "Sep";
+        month[9] = "Oct";
+        month[10] = "Nov";
+        month[11] = "Dec";
+
+        var now = new Date();
+        var month = month[now.getMonth()];
+        var date = now.getDate();
+        var year =  now.getFullYear();
+
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        let period = "AM";
+
+        if(hours > 11){
+            period = "PM";
+            if(hours < 11) hours -=12;
+        }
+        if(minutes < 10) {
+            minutes = "0" + minutes;
+        }
+
+       return `${month} ${date} ${year} | ${hours} : ${minutes} ${period}`;
+        
+    };
+     currdate.innerHTML = currentday() + " | " + currenttime();
+
+</script>
+
+</body>
+</html>
