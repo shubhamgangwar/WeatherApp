@@ -29,6 +29,9 @@ const server = http.createServer((req,res)=>{
           const objdata = JSON.parse(chunk);
           const arrdata = [objdata];
           // console.log(arrdata);
+          const temp = arrdata[0].main.temp-32*5/9;
+          
+          // console.log(temp);
 
           const realtimedata = arrdata.map((val) => replaceval(homeFile,val)).join("");
           res.end(realtimedata);
